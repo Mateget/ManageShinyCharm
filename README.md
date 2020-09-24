@@ -1,3 +1,4 @@
 # ShinyCharmManager
-Remove shiny charm from player in Pixelmon
-/removechinycharm <player> //works with the selector @a
+#### Remove shiny charm from player in Pixelmon
+#### /removeshinycharm \<player> //works with the selector @a
+#### DM me if you have Ideas : Mateget#1595
