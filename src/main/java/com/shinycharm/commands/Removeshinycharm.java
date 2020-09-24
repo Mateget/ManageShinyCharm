@@ -20,6 +20,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraftforge.server.permission.PermissionAPI;
 
 public class Removeshinycharm implements ICommand {
 	
@@ -107,7 +108,10 @@ public class Removeshinycharm implements ICommand {
 
 	@Override
 	public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
-		return true;
+		if (PermissionAPI.hasPermission((EntityPlayer) sender, "command.removeshinycharm")) {
+			return true;
+		}
+		return false;
 	}
 
 	@Override

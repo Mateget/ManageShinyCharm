@@ -12,6 +12,8 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import net.minecraftforge.server.permission.DefaultPermissionLevel;
+import net.minecraftforge.server.permission.PermissionAPI;
 
 
 @Mod(modid = Main.MODID, name = Main.NAME, version = Main.VERSION ,acceptableRemoteVersions = "*", serverSideOnly = true)
@@ -41,6 +43,7 @@ public class Main
     {
         // some example code
         Main.proxy.init(event);
+        PermissionAPI.registerNode("command.removeshinycharm",DefaultPermissionLevel.OP, "Permission for removeshinycharm command");
     }
     
     @EventHandler
