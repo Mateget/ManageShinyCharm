@@ -1,8 +1,6 @@
-package com.shinycharm;
+package shinycharm;
 
 import org.apache.logging.log4j.Logger;
-
-import com.shinycharm.commands.Removeshinycharm;
 
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -12,15 +10,15 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
-import net.minecraftforge.server.permission.DefaultPermissionLevel;
-import net.minecraftforge.server.permission.PermissionAPI;
+import commands.Removemegaring;
+import commands.Removeshinycharm;
 
 
 @Mod(modid = Main.MODID, name = Main.NAME, version = Main.VERSION ,acceptableRemoteVersions = "*", serverSideOnly = true)
 public class Main
 {
-    public static final String MODID = "scm";
-    public static final String NAME = "Shiny Charm Manager";
+    public static final String MODID = "rsc";
+    public static final String NAME = "Remove Shiny Charm";
     public static final String VERSION = "1.0";
     public static Logger logger;
     @Instance
@@ -28,7 +26,7 @@ public class Main
     public static Main getInstance() {
     	return instance;
     }
-    @SidedProxy(serverSide="com.shinycharm.ServerProxy")
+    @SidedProxy(serverSide="shinycharm.ServerProxy")
     public static ServerProxy proxy;
     
     @EventHandler
@@ -43,7 +41,6 @@ public class Main
     {
         // some example code
         Main.proxy.init(event);
-        PermissionAPI.registerNode("command.removeshinycharm",DefaultPermissionLevel.OP, "Permission for removeshinycharm command");
     }
     
     @EventHandler
@@ -53,9 +50,12 @@ public class Main
     
     @Mod.EventHandler
     public void serverLoad(FMLServerStartingEvent e) {
-    	Removeshinycharm Removeshinycharm = new Removeshinycharm();
-    	e.registerServerCommand(Removeshinycharm);
+    	Removeshinycharm removeshinycharm = new Removeshinycharm();
+    	e.registerServerCommand(removeshinycharm);
     	logger.info("Removeshinycharm command added !");
+    	Removemegaring removemegaring = new Removemegaring();
+    	e.registerServerCommand(removemegaring);
+    	logger.info("Removemegaring command added !");
     	
     }
     

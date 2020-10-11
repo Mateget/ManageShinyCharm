@@ -1,4 +1,4 @@
-package com.shinycharm.commands;
+package commands;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,7 +20,6 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraftforge.server.permission.PermissionAPI;
 
 public class Removeshinycharm implements ICommand {
 	
@@ -98,7 +97,7 @@ public class Removeshinycharm implements ICommand {
 		EnumFeatureState shinyCharmData = playerData.getShinyCharmState();
 		if (shinyCharmData.isAvailable()) {
 			sender.sendMessage(format(net.minecraft.util.text.TextFormatting.GREEN, "Woosh ! no more shiny charm for "+player.getName()));
-			playerData.setShinyCharm(shinyCharmData.Disabled);
+			playerData.setShinyCharm(EnumFeatureState.Disabled);
 		}
 		else {
 			sender.sendMessage(format(net.minecraft.util.text.TextFormatting.RED, "Player "+player.getName()+" doesn't have shiny charm"));
@@ -108,10 +107,7 @@ public class Removeshinycharm implements ICommand {
 
 	@Override
 	public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
-		if (PermissionAPI.hasPermission((EntityPlayer) sender, "command.removeshinycharm")) {
-			return true;
-		}
-		return false;
+		return true;
 	}
 
 	@Override
