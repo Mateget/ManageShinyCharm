@@ -94,7 +94,7 @@ public class Removeshinycharm implements ICommand {
 		}
 
 		PlayerPartyStorage playerData = storage.getParty(player.getUniqueID());
-		EnumFeatureState shinyCharmData = playerData.getShinyCharmState();
+		EnumFeatureState shinyCharmData = playerData.getShinyCharm();
 		if (shinyCharmData.isAvailable()) {
 			sender.sendMessage(format(net.minecraft.util.text.TextFormatting.GREEN, "Woosh ! no more shiny charm for "+player.getName()));
 			playerData.setShinyCharm(EnumFeatureState.Disabled);
