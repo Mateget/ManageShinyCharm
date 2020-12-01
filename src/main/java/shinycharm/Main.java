@@ -2,6 +2,7 @@ package shinycharm;
 
 import org.apache.logging.log4j.Logger;
 
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -14,7 +15,7 @@ import commands.Removemegaring;
 import commands.Removeshinycharm;
 
 
-@Mod(modid = Main.MODID, name = Main.NAME, version = Main.VERSION ,acceptableRemoteVersions = "*", serverSideOnly = true)
+@Mod(modid = Main.MODID, name = Main.NAME, version = Main.VERSION ,acceptableRemoteVersions = "*")
 public class Main
 {
     public static final String MODID = "rsc";
@@ -26,26 +27,22 @@ public class Main
     public static Main getInstance() {
     	return instance;
     }
-    @SidedProxy(serverSide="shinycharm.ServerProxy")
-    public static ServerProxy proxy;
-    
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {
     	logger = event.getModLog();
-        Main.proxy.preInit(event);
+    	PotionInit.registerPotion();
     }
 
     @EventHandler
     public void init(FMLInitializationEvent event)
     {
         // some example code
-        Main.proxy.init(event);
+    	MinecraftForge.EVENT_BUS.register(new Events());
     }
     
     @EventHandler
     public void postInit(FMLPostInitializationEvent e) {
-        Main.proxy.postInit(e);
     }
     
     @Mod.EventHandler

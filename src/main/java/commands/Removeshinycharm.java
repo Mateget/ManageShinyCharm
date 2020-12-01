@@ -7,10 +7,10 @@ import java.util.ListIterator;
 import java.util.UUID;
 
 import com.google.common.collect.Lists;
-import com.pixelmonmod.pixelmon.storage.PlayerPartyStorage;
 import com.pixelmonmod.pixelmon.Pixelmon;
 import com.pixelmonmod.pixelmon.api.storage.IStorageManager;
 import com.pixelmonmod.pixelmon.enums.EnumFeatureState;
+import com.pixelmonmod.pixelmon.storage.PlayerPartyStorage;
 
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommand;
