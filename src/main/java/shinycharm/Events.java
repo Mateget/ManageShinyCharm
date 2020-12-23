@@ -1,15 +1,8 @@
 package shinycharm;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.UUID;
 
 import com.pixelmonmod.pixelmon.Pixelmon;
-import com.pixelmonmod.pixelmon.api.storage.IStorageManager;
 import com.pixelmonmod.pixelmon.enums.EnumFeatureState;
-import com.pixelmonmod.pixelmon.storage.PlayerPartyStorage;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.text.TextComponentTranslation;
@@ -21,18 +14,24 @@ public class Events {
 
 	@SubscribeEvent
     public void shinyCharmEffect(PlayerTickEvent e) {
-	  boolean isActive = false;
-	  if(e.player.isPotionActive(PotionInit.shinyCharmPotion_Effect)) isActive=true;
-	  
-	  if(isActive && hasShinyCharm(e.player)) {
-		  this.setShinyCharm(e.player);
-	  } else {
+	  if(e.player.isPotionActive(PotionInit.shinyCharmPotion_Effect)){
+		  if(this.hasShinyCharm(e.player)) {
+			  this.setShinyCharmActive(e.player);
+		  }
+		  else{
+			  this.setShinyCharmAvavilable(e.player);
+		  }
+	  }
+	  else {
 		  this.unsetShinyCharm(e.player);
 	  }
     }
 	
-	private void setShinyCharm(EntityPlayer player) {
+	private void setShinyCharmAvavilable(EntityPlayer player) {
 		Pixelmon.storageManager.getParty(player.getUniqueID()).setShinyCharm(EnumFeatureState.Available);
+	}
+	private void setShinyCharmActive(EntityPlayer player) {
+		Pixelmon.storageManager.getParty(player.getUniqueID()).setShinyCharm(EnumFeatureState.Active);
 	}
 	private void unsetShinyCharm(EntityPlayer player) {
 		Pixelmon.storageManager.getParty(player.getUniqueID()).setShinyCharm(EnumFeatureState.Disabled);
