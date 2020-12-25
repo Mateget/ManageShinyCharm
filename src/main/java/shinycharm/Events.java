@@ -15,15 +15,14 @@ public class Events {
 	@SubscribeEvent
     public void shinyCharmEffect(PlayerTickEvent e) {
 	  if(e.player.isPotionActive(PotionInit.shinyCharmPotion_Effect)){
-		  if(this.hasShinyCharm(e.player)) {
-			  this.setShinyCharmActive(e.player);
-		  }
-		  else{
+		  if(!this.hasShinyCharm(e.player)) {
 			  this.setShinyCharmAvavilable(e.player);
+			  this.setShinyCharmActive(e.player);
 		  }
 	  }
 	  else {
-		  this.unsetShinyCharm(e.player);
+		  if(this.hasShinyCharm(e.player) || this.hasShinyCharmActive(e.player))
+			  this.unsetShinyCharm(e.player);
 	  }
     }
 	
@@ -38,6 +37,9 @@ public class Events {
 	}
 	private boolean hasShinyCharm(EntityPlayer player) {
 		return Pixelmon.storageManager.getParty(player.getUniqueID()).getShinyCharm().isAvailable();
+	}
+	private boolean hasShinyCharmActive(EntityPlayer player) {
+		return Pixelmon.storageManager.getParty(player.getUniqueID()).getShinyCharm().isActive();
 	}
 	
 	private TextComponentTranslation format(TextFormatting color, String str, Object... args)
