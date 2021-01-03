@@ -13,9 +13,10 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import commands.Removemegaring;
 import commands.Removeshinycharm;
+import commands.Shinycharm;
 
 
-@Mod(modid = Main.MODID, name = Main.NAME, version = Main.VERSION ,acceptableRemoteVersions = "*")
+@Mod(modid = Main.MODID, name = Main.NAME, version = Main.VERSION ,acceptableRemoteVersions = "*" ,serverSideOnly = true )
 public class Main
 {
     public static final String MODID = "rsc";
@@ -31,7 +32,6 @@ public class Main
     public void preInit(FMLPreInitializationEvent event)
     {
     	logger = event.getModLog();
-    	PotionInit.registerPotion();
     }
 
     @EventHandler
@@ -53,6 +53,9 @@ public class Main
     	Removemegaring removemegaring = new Removemegaring();
     	e.registerServerCommand(removemegaring);
     	logger.info("Removemegaring command added !");
+    	Shinycharm testcommand = new Shinycharm();
+    	e.registerServerCommand(testcommand);
+    	logger.info("Testcommand command added !");
     	
     }
     

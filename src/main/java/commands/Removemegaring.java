@@ -121,7 +121,6 @@ public class Removemegaring implements ICommand {
 					autocompleteList.add(e);
 				}
 			}
-			list = Arrays.asList(server.getPlayerList().getOnlinePlayerNames());
 		}		
 		return autocompleteList;
 	}
