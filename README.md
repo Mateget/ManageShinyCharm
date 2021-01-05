@@ -1,8 +1,8 @@
 # RemoveShinyCharm Pixelmon-Sidemod
 Remove shiny charm  
- * **/removeshinycharm \<player>** - works with the selector @a
+ * **/removeshinycharm \<player>** - works with the selector @a  
 Remove mega ring  
- * **/removemegaring \<player>** - works with the selector @a
+ * **/removemegaring \<player>** - works with the selector @a  
 Manage temporary shiny charm  
  * **/wololo \<player> <check|active|disable>** - selector @a not supported YET  
    * **check** - display time of shiny charm left 
