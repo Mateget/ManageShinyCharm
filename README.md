@@ -4,7 +4,7 @@
 #### Remove mega ring from player
 #### /removemegaring \<player> //works with the selector @a
 #### Manage temporary shiny charm from player
-#### /wololo \<player> <check|active|disble>
+#### /wololo \<player> <check|active|disble> //selector @a not supported YET
 ####                   - check // display time of shiny charm left of a player
 ####                   - active \<time> //add shiny charm duration from a player ( time in seconds )
 ####                   - disable // remove time left of shiny charm from a player
