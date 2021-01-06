@@ -7,10 +7,7 @@ import java.util.ListIterator;
 import java.util.UUID;
 
 import com.google.common.collect.Lists;
-import com.pixelmonmod.pixelmon.Pixelmon;
-import com.pixelmonmod.pixelmon.api.storage.IStorageManager;
-import com.pixelmonmod.pixelmon.enums.EnumFeatureState;
-import com.pixelmonmod.pixelmon.storage.PlayerPartyStorage;
+
 
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommand;
@@ -20,8 +17,9 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
+import shinycharm.FileHandler;
 
-public class Shinycharm implements ICommand {
+public class Wololo implements ICommand {
 	
 	String cmdname = "wololo";
 	@Override
@@ -88,6 +86,9 @@ public class Shinycharm implements ICommand {
 						sender.sendMessage(format(net.minecraft.util.text.TextFormatting.GREEN, "Player " + player.getName() + " only has a few seconds left of Shiny Charm"));
 					} else {
 						sender.sendMessage(format(net.minecraft.util.text.TextFormatting.GREEN, "Player " + player.getName() + " has " + timeleft + " seconds of Shiny Charm left"));
+					}
+					if(!FileHandler.config.getActive()) {
+						sender.sendMessage(format(net.minecraft.util.text.TextFormatting.RED, "But shiny charm is currently disabled"));
 					}
 				} else {
 					sender.sendMessage(format(net.minecraft.util.text.TextFormatting.RED, "Player " + player.getName() + " has no Shiny Charm active"));
