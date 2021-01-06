@@ -1,3 +1,5 @@
+// https://github.com/Licious17/Eggcellent/blob/master/src/main/java/pt/licious/eggcellent/utils/PermissionUtils.java
+
 package shinycharm;
 
 import net.minecraft.command.ICommandSender;
