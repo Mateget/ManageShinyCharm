@@ -1,4 +1,5 @@
 # RemoveShinyCharm Pixelmon-Sidemod
+#### Commands
 Remove shiny charm
  * **/removeshinycharm \<player>** - works with the selector @a  
 <!-- end list -->
@@ -15,10 +16,10 @@ Manage temporary shiny charm
 Reload to read config file
  * **/charmreload** 
  
-Permissions
-* rsc.removeshinycharm
-* rsc.removemegaring
-* rsc.charm
-* rsc.charmreload
+#### Permissions
+* **rsc.removeshinycharm**
+* **rsc.removemegaring**
+* **rsc.charm**
+* **rsc.charmreload**
 
 #### DM me if you have Ideas : Mateget#1595
