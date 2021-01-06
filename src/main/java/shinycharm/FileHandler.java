@@ -26,7 +26,7 @@ public class FileHandler {
             config = gson.fromJson(br, Config.class);
             br.close();
         } catch (Exception e) {
-            Main.logger.error("Failed to read Eggcellent config:\r\n" + e.getMessage());
+            Main.logger.error("Failed to read config file:\r\n" + e.getMessage());
         }
     }
 
@@ -40,7 +40,7 @@ public class FileHandler {
             writer.write(json);
             writer.close();
         } catch (Exception e) {
-            Main.logger.error("Failed to save Eggcellent config:\r\n" + e.getMessage());
+            Main.logger.error("Failed to save config file:\r\n" + e.getMessage());
         }
     }
 
