@@ -10,29 +10,28 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import shinycharm.FileHandler;
 import shinycharm.Main;
-import shinycharm.PermissionUtils;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Reload extends CommandBase {
+public class Charmreload extends CommandBase {
 
     @Override
     public String getName() {
-        return "shinycharmconfig";
+        return "charmreload";
     }
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return "&cUsage: /shinycharmconfig reload";
+        return "&cUsage: /charmreload";
     }
 
     @Override
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
-        if (args.length == 1 && args[0].equalsIgnoreCase("reload")) {
+        if (args.length == 0 ) {
             FileHandler.readConfig();
-            this.send(sender, "&aYou have reloaded the configuration files, please double check the console for any errors");
+            this.send(sender, "&aYou have reloaded the configuration files");
             return;
         }
         this.send(sender, getUsage(sender));
@@ -41,14 +40,12 @@ public class Reload extends CommandBase {
     @Override
     public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos targetPos) {
         List<String> possibleArgs = new ArrayList<>();
-        if (args.length == 1)
-            possibleArgs.add("reload");
         return getListOfStringsMatchingLastWord(args, possibleArgs);
     }
 
     @Override
     public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
-        return PermissionUtils.canUse(Main.MODID + ".admin.reload", sender);
+        return PermissionUtils.canUse(Main.MODID + ".charmreload", sender);
     }
 
     private void send(ICommandSender sender, String message) {

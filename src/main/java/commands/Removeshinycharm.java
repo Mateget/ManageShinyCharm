@@ -20,6 +20,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
+import shinycharm.Main;
 
 public class Removeshinycharm implements ICommand {
 	
@@ -106,9 +107,9 @@ public class Removeshinycharm implements ICommand {
 	}
 
 	@Override
-	public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
-		return true;
-	}
+    public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
+        return PermissionUtils.canUse(Main.MODID + ".removeshinycharm", sender);
+    }
 
 	@Override
 	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos targetPos) {

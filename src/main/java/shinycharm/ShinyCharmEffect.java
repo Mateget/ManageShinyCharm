@@ -12,7 +12,7 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
 
 public class ShinyCharmEffect {
 	
-	int CHECK_TIME =102; // seconds
+	int CHECK_TIME =10; // seconds
 	int tick = 0;
 	boolean active;
 	;

@@ -18,10 +18,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
 import shinycharm.FileHandler;
+import shinycharm.Main;
 
-public class Wololo implements ICommand {
+public class Charm implements ICommand {
 	
-	String cmdname = "wololo";
+	String cmdname = "charm";
 	@Override
 	public int compareTo(ICommand arg0) {
 		return 0;
@@ -124,9 +125,9 @@ public class Wololo implements ICommand {
 	}
 
 	@Override
-	public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
-		return true;
-	}
+    public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
+        return PermissionUtils.canUse(Main.MODID + ".charm", sender);
+    }
 
 	@Override
 	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos targetPos) {

@@ -21,10 +21,10 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.server.FMLServerHandler;
-import commands.Reload;
+import commands.Charmreload;
 import commands.Removemegaring;
 import commands.Removeshinycharm;
-import commands.Wololo;
+import commands.Charm;
 
 
 @Mod(modid = Main.MODID, name = Main.NAME, version = Main.VERSION ,acceptableRemoteVersions = "*" ,serverSideOnly = true )
@@ -46,7 +46,7 @@ public class Main
     public void preInit(FMLPreInitializationEvent event)
     {
     	logger = event.getModLog();
-    	logger.info("Booting up " + NAME + " made by Mateget - " + VERSION);
+    	logger.info("Booting up " + NAME);
         configDir = new File(event.getModConfigurationDirectory() + "/" + MODID);
         configDir.mkdir();
         configFile = new File(configDir, "config.json");
@@ -69,27 +69,22 @@ public class Main
     
     @Mod.EventHandler
     public void serverLoad(FMLServerStartingEvent e) {
+    	
     	Removeshinycharm removeshinycharm = new Removeshinycharm();
     	e.registerServerCommand(removeshinycharm);
     	logger.info("Removeshinycharm command added !");
+    	
     	Removemegaring removemegaring = new Removemegaring();
     	e.registerServerCommand(removemegaring);
     	logger.info("Removemegaring command added !");
-    	Wololo wololo = new Wololo();
-    	e.registerServerCommand(wololo);
-    	logger.info("Wololo command added !");
-    	Reload reload = new Reload();
+    	
+    	Charm charm = new Charm();
+    	e.registerServerCommand(charm);
+    	logger.info("Charm command added !");
+    	
+    	Charmreload reload = new Charmreload();
     	e.registerServerCommand(reload);
-    	logger.info("Reload command added !");
-    	/*
-    	 * MinecraftServer server = FMLServerHandler.instance().getServer();
-    	ServerCommandManager test = new ServerCommandManager(server);
-    	logger.info(test.getCommands().toString());
-    	*/
-    	/*MinecraftServer server = FMLServerHandler.instance().getServer();
-    	ICommandManager commandManager = server.getCommandManager();
-    	ServerCommandManager serverCommandManager = ((ServerCommandManager)commandManager);
-    	logger.info(serverCommandManager.getCommands().toString());*/
+    	logger.info("Charmreload command added !");
     	
     }
     
