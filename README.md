@@ -22,7 +22,7 @@ Reload to read config file
 * **rsc.charmreload**
 
 ## TODO
-Add timer to player
-Look for performances requires
+Add timer to player    
+Look for performances requires  
 
 #### DM me if you have Ideas : Mateget#1595
