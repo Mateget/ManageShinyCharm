@@ -16,6 +16,9 @@ import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.network.play.server.SPacketTitle;
+import net.minecraft.network.play.server.SPacketTitle.Type;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
@@ -122,6 +125,9 @@ public class Charm implements ICommand {
 					this.unsetShinyCharm(player);
 					sender.sendMessage(format(net.minecraft.util.text.TextFormatting.RED, "Player " + player.getName() + " Shiny Charm no longer active"));
 					player.sendMessage(format(net.minecraft.util.text.TextFormatting.GRAY, "Your Shiny Charm has been expired by an Operator"));
+					EntityPlayerMP play = (EntityPlayerMP)player;
+					  SPacketTitle packet = new SPacketTitle (Type.ACTIONBAR,format(net.minecraft.util.text.TextFormatting.GRAY, "Your Shiny Charm has been expired by an Operator"),0,60,0);
+					  play.connection.sendPacket(packet);
 				} else {
 					sender.sendMessage(format(net.minecraft.util.text.TextFormatting.RED, "Player " + player.getName() + " has no Shiny Charm active"));
 				}

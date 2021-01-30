@@ -10,6 +10,7 @@ import net.minecraft.network.play.server.SPacketTitle.Type;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
@@ -19,6 +20,14 @@ public class EventHandler{
 	
 	int CHECK_TIME = 1; // seconds
 	int tick = 0;
+	
+	@SubscribeEvent
+	public void onPlayerClone(PlayerEvent.Clone event){
+	EntityPlayer player = event.getEntityPlayer();
+	IShinyCharmTemp shinycharmtemp = player.getCapability(ShinyCharmTempProvider.SHINYCHARMTEMP_CAP, null);
+	IShinyCharmTemp oldshinycharmtemp = event.getOriginal().getCapability(ShinyCharmTempProvider.SHINYCHARMTEMP_CAP, null);
+	shinycharmtemp.setTime(oldshinycharmtemp.getTime());
+	}
 	
 	@SubscribeEvent
 	 public void onPlayerLogsIn(PlayerLoggedInEvent event){

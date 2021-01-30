@@ -2,8 +2,8 @@
 {
   "modid": "rsc",
   "name": "Remove Shiny Charm",
-  "description": "Remove Shiny Charm from players",
-  "version": "1.0.0",
+  "description": "Manage Shiny Charm from players",
+  "version": "1.1.0",
   "mcversion": "1.12.2",
   "url": "",
   "updateUrl": "",
