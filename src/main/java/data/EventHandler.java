@@ -8,7 +8,6 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.play.server.SPacketTitle;
 import net.minecraft.network.play.server.SPacketTitle.Type;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -41,7 +40,7 @@ public class EventHandler{
 		      return;
 		  }
 		  tick = 0;
-		  long begin = System.nanoTime();
+		  //long begin = System.nanoTime(); //Performances check
 		  if(!FileHandler.config.getActive()) {
 			  EntityPlayer player = (EntityPlayer) e.player;
 			  if(hasShinyCharm(player) && hasShinyCharmActive(player)) {
@@ -89,8 +88,8 @@ public class EventHandler{
 				  play.connection.sendPacket(packet);
 			  }
 			}
-		  long end = System.nanoTime();
-		  e.player.sendMessage(format(net.minecraft.util.text.TextFormatting.GRAY, Long.toString((long)end-begin)));
+		  //long end = System.nanoTime();
+		  //e.player.sendMessage(format(net.minecraft.util.text.TextFormatting.GRAY, Long.toString((long)end-begin)));
 			 
 		}
 	
