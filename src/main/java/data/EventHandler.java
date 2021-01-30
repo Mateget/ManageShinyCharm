@@ -79,9 +79,9 @@ public class EventHandler{
 						  if(sec < 10) time = min + "m0" + sec ;
 						  else time = min + "m" + sec ;
 					  } else if( min == 1) {
-						  if(sec>10) time = min + "m" + sec ;
+						  if(sec >= 10) time = min + "m" + sec ;
 						  else if(sec>1) time = min + "m0" + sec ;
-						  else time = "60" + sec ;
+						  else time = "60 sec" ;
 					  }  else time = sec + " sec";
 						  
 					  SPacketTitle packet = new SPacketTitle (Type.ACTIONBAR,format(net.minecraft.util.text.TextFormatting.GOLD, "Shiny charm left " + time ),0,60,0);
