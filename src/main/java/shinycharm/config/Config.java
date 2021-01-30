@@ -1,4 +1,4 @@
-package shinycharm;
+package shinycharm.config;
 
 
 public class Config {

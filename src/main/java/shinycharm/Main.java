@@ -1,18 +1,20 @@
 package shinycharm;
 
 import java.io.File;
-import java.util.List;
-import java.util.Map;
 
 import org.apache.logging.log4j.Logger;
 
-import net.minecraft.command.ICommand;
-import net.minecraft.command.ICommandManager;
-import net.minecraft.command.ICommandSender;
-import net.minecraft.command.ServerCommandManager;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.math.BlockPos;
+import commands.Charm;
+import commands.Charmreload;
+import commands.Removemegaring;
+import commands.Removeshinycharm;
+import data.CapabilityHandler;
+import data.IShinyCharmTemp;
+import data.ShinyCharmTempProvider;
+import data.ShinyCharmTemp;
+import data.ShinyCharmTempStorage;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -20,11 +22,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
-import net.minecraftforge.fml.server.FMLServerHandler;
-import commands.Charmreload;
-import commands.Removemegaring;
-import commands.Removeshinycharm;
-import commands.Charm;
+import shinycharm.config.FileHandler;
 
 
 @Mod(modid = Main.MODID, name = Main.NAME, version = Main.VERSION ,acceptableRemoteVersions = "*" ,serverSideOnly = true )
@@ -53,6 +51,10 @@ public class Main
         FileHandler.readConfig();
         FileHandler.creationCheck();
         FileHandler.writeConfig();
+        CapabilityManager.INSTANCE.register(IShinyCharmTemp.class, new ShinyCharmTempStorage(), ShinyCharmTemp.class);
+        MinecraftForge.EVENT_BUS.register(new ShinyCharmTempProvider());
+        MinecraftForge.EVENT_BUS.register(new CapabilityHandler());
+        MinecraftForge.EVENT_BUS.register(new data.EventHandler());
         
         logger.info("Finished the booting process");
     }
@@ -60,7 +62,7 @@ public class Main
     @EventHandler
     public void init(FMLInitializationEvent event)
     {
-    	MinecraftForge.EVENT_BUS.register(new ShinyCharmEffect());
+    	
     }
     
     @EventHandler
@@ -72,19 +74,15 @@ public class Main
     	
     	Removeshinycharm removeshinycharm = new Removeshinycharm();
     	e.registerServerCommand(removeshinycharm);
-    	logger.info("Removeshinycharm command added !");
     	
     	Removemegaring removemegaring = new Removemegaring();
     	e.registerServerCommand(removemegaring);
-    	logger.info("Removemegaring command added !");
     	
     	Charm charm = new Charm();
     	e.registerServerCommand(charm);
-    	logger.info("Charm command added !");
     	
     	Charmreload reload = new Charmreload();
     	e.registerServerCommand(reload);
-    	logger.info("Charmreload command added !");
     	
     }
     

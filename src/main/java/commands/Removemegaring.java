@@ -21,6 +21,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
 import shinycharm.Main;
+import shinycharm.PermissionUtils;
 
 public class Removemegaring implements ICommand {
 	

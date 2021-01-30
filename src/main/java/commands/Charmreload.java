@@ -8,8 +8,9 @@ import net.minecraft.command.ICommandSender;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
-import shinycharm.FileHandler;
 import shinycharm.Main;
+import shinycharm.PermissionUtils;
+import shinycharm.config.FileHandler;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;

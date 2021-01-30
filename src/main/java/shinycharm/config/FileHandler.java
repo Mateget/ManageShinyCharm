@@ -1,6 +1,6 @@
 // https://github.com/Licious17/Eggcellent/blob/master/src/main/java/pt/licious/eggcellent/files/FileHandler.java
 
-package shinycharm;
+package shinycharm.config;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -9,6 +9,8 @@ import java.io.FileWriter;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import shinycharm.Main;
 
 public class FileHandler {
 

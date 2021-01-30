@@ -7,18 +7,23 @@ import java.util.ListIterator;
 import java.util.UUID;
 
 import com.google.common.collect.Lists;
+import com.pixelmonmod.pixelmon.Pixelmon;
+import com.pixelmonmod.pixelmon.enums.EnumFeatureState;
 
-
+import data.IShinyCharmTemp;
+import data.ShinyCharmTempProvider;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
-import shinycharm.FileHandler;
 import shinycharm.Main;
+import shinycharm.PermissionUtils;
+import shinycharm.config.FileHandler;
 
 public class Charm implements ICommand {
 	
@@ -49,7 +54,7 @@ public class Charm implements ICommand {
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
 		EntityPlayer player;
 		if(args.length < 2) {
-			sender.sendMessage(format(net.minecraft.util.text.TextFormatting.RED,"Syntaxe : /" + cmdname +" <player> <check|active|disable> [time]" ));
+			sender.sendMessage(format(net.minecraft.util.text.TextFormatting.RED,"Syntaxe : /" + cmdname +" <player> <check|give|remove> [time]" ));
 		} else {
 			if(args[0].length()==36) {
 				if ((server.getPlayerList().getPlayerByUUID(UUID.fromString(args[0])) instanceof EntityPlayer)) {
@@ -79,10 +84,10 @@ public class Charm implements ICommand {
 					return;
 				}
 			}
-			
+			IShinyCharmTemp shinyCharmTemp = player.getCapability(ShinyCharmTempProvider.SHINYCHARMTEMP_CAP, EnumFacing.UP);
 			if(args[1].equals("check")) {
-				if(player.getEntityData().hasKey("tempshinycharm") && player.getEntityData().getBoolean("tempshinycharm")){
-					int timeleft = player.getEntityData().getInteger("timeshinycharm");
+				if(shinyCharmTemp.getTime() > 0){
+					int timeleft = shinyCharmTemp.getTime();
 					if( timeleft < 8 ) {
 						sender.sendMessage(format(net.minecraft.util.text.TextFormatting.GREEN, "Player " + player.getName() + " only has a few seconds left of Shiny Charm"));
 					} else {
@@ -95,25 +100,26 @@ public class Charm implements ICommand {
 					sender.sendMessage(format(net.minecraft.util.text.TextFormatting.RED, "Player " + player.getName() + " has no Shiny Charm active"));
 				}
 			}
-			if(args[1].equals("active")) {
+			if(args[1].equals("give")) {
 				if(args.length != 3) {
-					sender.sendMessage(format(net.minecraft.util.text.TextFormatting.RED,"Syntaxe : /" + cmdname + " " + player.getName() + " active <time>" ));
+					sender.sendMessage(format(net.minecraft.util.text.TextFormatting.RED,"Syntaxe : /" + cmdname + " " + player.getName() + " give <time>" ));
 				} else {
 					if(isInteger(args[2])) {
-						int newtime = player.getEntityData().getInteger("timeshinycharm") + Integer.parseInt(args[2]);
-						player.getEntityData().setBoolean("tempshinycharm", true);
-						player.getEntityData().setInteger("timeshinycharm", newtime);
+						int newtime = shinyCharmTemp.getTime() + Integer.parseInt(args[2]);
+						shinyCharmTemp.setTime(newtime);
+						this.setShinyCharmAvavilable(player);
+						this.setShinyCharmActive(player);
 						sender.sendMessage(format(net.minecraft.util.text.TextFormatting.GREEN, "Player " + player.getName() + " has now " +  newtime + " seconds of Shiny Charm"));
 					} else {
-						sender.sendMessage(format(net.minecraft.util.text.TextFormatting.RED,"Syntaxe : /"+cmdname+" " + player.getName() + " active <time>" ));
-						sender.sendMessage(format(net.minecraft.util.text.TextFormatting.RED,"Use seconds for time, example : /" +cmdname+ " " + player.getName() + " active 300" ));
+						sender.sendMessage(format(net.minecraft.util.text.TextFormatting.RED,"Syntaxe : /"+cmdname+" " + player.getName() + " give <time>" ));
+						sender.sendMessage(format(net.minecraft.util.text.TextFormatting.RED,"Use seconds for time, example : /" +cmdname+ " " + player.getName() + " give 300" ));
 					}
 				}
 			}
-			if(args[1].equals("disable")) {
-				if(player.getEntityData().hasKey("tempshinycharm") && player.getEntityData().getBoolean("tempshinycharm")){
-					player.getEntityData().setBoolean("tempshinycharm", false);
-					player.getEntityData().setInteger("timeshinycharm", 0);
+			if(args[1].equals("remove")) {
+				if(shinyCharmTemp.getTime() > 0){
+					shinyCharmTemp.setTime(0);
+					this.unsetShinyCharm(player);
 					sender.sendMessage(format(net.minecraft.util.text.TextFormatting.RED, "Player " + player.getName() + " Shiny Charm no longer active"));
 					player.sendMessage(format(net.minecraft.util.text.TextFormatting.GRAY, "Your Shiny Charm has been expired by an Operator"));
 				} else {
@@ -122,6 +128,16 @@ public class Charm implements ICommand {
 			}
 		}
 		
+	}
+	
+	private void setShinyCharmAvavilable(EntityPlayer player) {
+		Pixelmon.storageManager.getParty(player.getUniqueID()).setShinyCharm(EnumFeatureState.Available);
+	}
+	private void setShinyCharmActive(EntityPlayer player) {
+		Pixelmon.storageManager.getParty(player.getUniqueID()).setShinyCharm(EnumFeatureState.Active);
+	}
+	private void unsetShinyCharm(EntityPlayer player) {
+		Pixelmon.storageManager.getParty(player.getUniqueID()).setShinyCharm(EnumFeatureState.Disabled);
 	}
 
 	@Override
@@ -143,9 +159,9 @@ public class Charm implements ICommand {
 		}
 		if( args.length == 2 ) {
 			List<String> list = new ArrayList<String>();
-			list.add("active");
 			list.add("check");
-			list.add("disable");
+			list.add("give");
+			list.add("remove");
 			autocompleteList = new ArrayList<String>();
 			for( String e : list) {
 				if(e.toLowerCase().indexOf(args[1].toLowerCase())==0) {
