@@ -1,4 +1,4 @@
-# ManageShinyCharm Pixelmon-Sidemod
+# TemporaryShinyCharm Pixelmon-Sidemod
 ## Commands
 Remove shiny charm
  * **/removeshinycharm \<player>** - works with the selector @a  
